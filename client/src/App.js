@@ -4,14 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"; //this is a the css file used in 
 import { Routes, Route, Link } from "react-router-dom"; //Routes is just a container for Route
 import HomeView from "./components/HomeView";
 import UserView from "./components/UserView";
-import {
-  Container,
-  InputGroup,
-  FormControl,
-  Button,
-  Row,
-  Card,
-} from "react-bootstrap";
+import CardTracks from "./components/CardTracks";
 
 function App() {
   // const [data, setData] = useState([]);
@@ -32,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeView />} />
         <Route path="/users" element={<UserView />} />
+        <Route path="/tracks" element={<CardTracks />} />
       </Routes>
     </div>
   );

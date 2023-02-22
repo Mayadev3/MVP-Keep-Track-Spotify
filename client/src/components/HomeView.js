@@ -8,6 +8,7 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
+import "./HomeView.css";
 
 const CLIENT_ID = "00858dd1207649a1be2b9016330f67a1";
 const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
@@ -16,7 +17,9 @@ export default function HomeView() {
   let [searchInput, setSearchInput] = useState("");
   let [accessToken, setAccessToken] = useState("");
   let [albums, setAlbums] = useState([]);
+  let [tracks, setTracks] = useState([]);
 
+  //useEffect to get access token
   useEffect(() => {
     let authParameters = {
       //this is to fetch our access token
@@ -47,6 +50,47 @@ export default function HomeView() {
     }
   }
 
+  //useEffect to get albums
+  useEffect(() => {
+    let searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+    };
+
+    //in the fetch url to start adding variables you put a ? then put the first variable
+    //we use the & to say what the next varibale is
+
+    //get request using search to get the Artist ID
+    let artistId = fetch(
+      "https://api.spotify.com/v1/search?q=" +
+        "taylor%20swift" +
+        "&type=artist", //if i put &type=album,track then i get the albums name and name of tracks on it
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        return data.artists.items[0].id;
+      }); //so here we are saving the id in a variable called artistId
+    // console.log("the artist id is" + artistId);
+    //get request with Artist ID and grab all the albums of that artist
+
+    let returnedAlbums = fetch(
+      "https://api.spotify.com/v1/artists/" +
+        "06HL4z0CvFAxyc27GXpf02" +
+        "/albums" +
+        "?include_groups=album&market=US&limit=50",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        setAlbums(data.items);
+      });
+  }, []);
+
   //Search
   async function search() {
     // console.log(`Search for ${searchInput}`);
@@ -71,7 +115,7 @@ export default function HomeView() {
       .then((data) => {
         return data.artists.items[0].id;
       }); //so here we are saving the id in a variable called artistId
-    console.log("the artist id is:" + artistId);
+    // console.log("the artist id is " + artistId);
     //get request with Artist ID and grab all the albums of that artist
 
     let returnedAlbums = await fetch(
@@ -83,12 +127,39 @@ export default function HomeView() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);//i see info of all albums
         setAlbums(data.items);
       });
 
     //display those albums to the user
   }
+
+  //get the tracks of the albums
+  const getTracks = async () => {
+    let searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+    };
+
+    let artistId = await fetch(
+      "https:api.spotify.com/v1/search?q=" + searchInput + "&type=album,track", //if i put &type=album,track then i get the albums name and name of tracks on it
+      searchParameters
+    )
+      //"https://api.spotify.com/v1/search?q=" +
+      //searchInput +
+      // "&type=album,track"
+      .then((response) => response.json())
+      .then((data) => {
+        // setTracks(data.tracks);
+        console.log(data);
+      }); //so here we are saving the id in a variable called artistId
+    // console.log("the artist id is:" + artistId);
+    //get request with Artist ID and grab all the albums of that artist
+  };
+
   console.log(albums); // i am console.logging the albums outside the function so i can see if i am getting the data to be able to use it in the DOM
   return (
     <div>
@@ -110,13 +181,17 @@ export default function HomeView() {
             console.log(album);
             return (
               <Card key={index}>
-                <Card.Img src={album.images[1].url} />
+                <Card.Img
+                  src={album.images[1].url}
+                  className="card-image"
+                  onClick={(e) => getTracks(e)}
+                />
 
                 <Card.Title>{album.name}</Card.Title>
                 <Card.Text>Release Date: {album.release_date}</Card.Text>
                 <Button variant="warning">
                   {/* See All {album.total_tracks} tracks */}
-                  <a href={album.external_urls.spotify}>Listen To Album</a>
+                  <a href={album.external_urls.spotify}>Listen To Tracks</a>
                 </Button>
               </Card>
             );
