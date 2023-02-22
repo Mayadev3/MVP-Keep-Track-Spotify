@@ -7,26 +7,17 @@ import UserView from "./components/UserView";
 import CardTracks from "./components/CardTracks";
 
 function App() {
-  // const [data, setData] = useState([]);
-  //we create this useeffect to make sure the front end and the backend are connected
-
-  // useEffect(() => {
-  //   fetch("/api")
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data));
-  // }, []);
-
   return (
     <div className="App">
-      Hello There!
       <nav>
         <Link to="/">Home</Link> | <Link to="/users">Users</Link>
       </nav>
       <Routes>
         <Route path="/" element={<HomeView />} />
         <Route path="/users" element={<UserView />} />
-        <Route path="/tracks" element={<CardTracks />} />
+        <Route path="/album/:id" element={<CardTracks />} />
       </Routes>
+      {/* let the routes look like those of spotify */}
     </div>
   );
 }

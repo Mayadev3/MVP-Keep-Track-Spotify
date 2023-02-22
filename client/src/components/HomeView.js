@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; //this is a the css file used in react bootstrap libraries
 import {
   Container,
@@ -17,9 +18,8 @@ export default function HomeView() {
   let [searchInput, setSearchInput] = useState("");
   let [accessToken, setAccessToken] = useState("");
   let [albums, setAlbums] = useState([]);
-  let [tracks, setTracks] = useState([]);
 
-  //useEffect to get access token
+  //USEFFECT TO GET ACCESS TOKEN
   useEffect(() => {
     let authParameters = {
       //this is to fetch our access token
@@ -31,26 +31,13 @@ export default function HomeView() {
         "&client_secret=" +
         CLIENT_SECRET,
     };
-    //API access token
+    //API FETCH ACCESS TOKEN
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((result) => result.json())
       .then((data) => setAccessToken(data.access_token)); //if you put it in a console.log instead of a state you will be getting the access token in the console
   }, []);
 
-  function handleChange(event) {
-    setSearchInput(event.target.value);
-    //if i put console.log(searchInput) here, it will look weird and lag one letter behind, that doesnt mean it isnt working
-    //i just should put the console.log (searchInput) in line 44
-  }
-  function handleKeyPress(event) {
-    if (event.key == "Enter") {
-      // console.log("Pressed Enter");
-      // console.log(searchInput);
-      search();
-    }
-  }
-
-  //useEffect to get albums
+  //USEEFFECT TO GET ALBUMS///everything stops working when i biring this back???
   useEffect(() => {
     let searchParameters = {
       method: "GET",
@@ -59,42 +46,51 @@ export default function HomeView() {
         Authorization: "Bearer " + accessToken,
       },
     };
-
     //in the fetch url to start adding variables you put a ? then put the first variable
     //we use the & to say what the next varibale is
 
     //get request using search to get the Artist ID
-    let artistId = fetch(
-      "https://api.spotify.com/v1/search?q=" +
-        "taylor%20swift" +
-        "&type=artist", //if i put &type=album,track then i get the albums name and name of tracks on it
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        return data.artists.items[0].id;
-      }); //so here we are saving the id in a variable called artistId
+    // let artistId = fetch(
+    //   "https://api.spotify.com/v1/search?q=" +
+    //     "taylor%20swift" +
+    //     "&type=artist", //if i put &type=album,track then i get the albums name and name of tracks on it
+    //   searchParameters
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     return data.artists.items[0].id;
+    //   }); //so here we are saving the id in a variable called artistId
     // console.log("the artist id is" + artistId);
     //get request with Artist ID and grab all the albums of that artist
 
-    let returnedAlbums = fetch(
-      "https://api.spotify.com/v1/artists/" +
-        "06HL4z0CvFAxyc27GXpf02" +
-        "/albums" +
-        "?include_groups=album&market=US&limit=50",
+    let artistId = fetch(
+      "https://api.spotify.com/v1/search?q=" + "elton%20john" + "&type=album", //if i put &type=album,track then i get the albums name and name of tracks on it
       searchParameters
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
-        setAlbums(data.items);
+        setAlbums(data.albums.items);
       });
   }, []);
-
-  //Search
+  ///////////////////////////////////////////////////////////////////
+  //WAS USING THIS IN THE USEEFFECT TO SHOW ALBUMS BUT CHANGED TO USING NAME INSTEED OF ARTIST ID
+  //   let returnedAlbums = fetch(
+  //     "https://api.spotify.com/v1/artists/" +
+  //       "06HL4z0CvFAxyc27GXpf02" +
+  //       "/albums" +
+  //       "?include_groups=album&market=US&limit=50",
+  //     searchParameters
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // console.log(data);
+  //       setAlbums(data.items);
+  //     });
+  // }, []);
+  /////////////////////////////////////////////////////////////////////////
+  //SEARCH FOR ALBUMS FUNCTION
   async function search() {
     // console.log(`Search for ${searchInput}`);
-
     let searchParameters = {
       method: "GET",
       headers: {
@@ -102,40 +98,38 @@ export default function HomeView() {
         Authorization: "Bearer " + accessToken,
       },
     };
-
     //in the fetch url to start adding variables you put a ? then put the first variable
     //we use the & to say what the next varibale is
 
     //get request using search to get the Artist ID
     let artistId = await fetch(
-      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", //if i put &type=album,track then i get the albums name and name of tracks on it
+      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=album", //if i put &type=album,track then i get the albums name and name of tracks on it
       searchParameters
     )
       .then((response) => response.json())
       .then((data) => {
-        return data.artists.items[0].id;
+        setAlbums(data.albums.items);
       }); //so here we are saving the id in a variable called artistId
     // console.log("the artist id is " + artistId);
     //get request with Artist ID and grab all the albums of that artist
 
-    let returnedAlbums = await fetch(
-      "https://api.spotify.com/v1/artists/" +
-        artistId +
-        "/albums" +
-        "?include_groups=album&market=US&limit=50",
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);//i see info of all albums
-        setAlbums(data.items);
-      });
-
-    //display those albums to the user
+    // let returnedAlbums = await fetch(
+    //   "https://api.spotify.com/v1/artists/" +
+    //     artistId +
+    //     "/albums" +
+    //     "?include_groups=album&market=US&limit=50",
+    //   searchParameters
+    // )
+    //   //display those albums to the user
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // console.log(data);//i see info of all albums
+    //     setAlbums(data.items);
+    //   });
   }
 
-  //get the tracks of the albums
-  const getTracks = async () => {
+  //GET TRACKS OF ALBUM FUNCTION
+  const getTracks = async (albumId) => {
     let searchParameters = {
       method: "GET",
       headers: {
@@ -144,23 +138,35 @@ export default function HomeView() {
       },
     };
 
-    let artistId = await fetch(
-      "https:api.spotify.com/v1/search?q=" + searchInput + "&type=album,track", //if i put &type=album,track then i get the albums name and name of tracks on it
+    await fetch(
+      "https:api.spotify.com/v1/albums/" + albumId + "/tracks", //if i put &type=album,track then i get the albums name and name of tracks on it
       searchParameters
     )
-      //"https://api.spotify.com/v1/search?q=" +
-      //searchInput +
-      // "&type=album,track"
       .then((response) => response.json())
       .then((data) => {
-        // setTracks(data.tracks);
-        console.log(data);
+        return data.items;
       }); //so here we are saving the id in a variable called artistId
     // console.log("the artist id is:" + artistId);
     //get request with Artist ID and grab all the albums of that artist
   };
 
   console.log(albums); // i am console.logging the albums outside the function so i can see if i am getting the data to be able to use it in the DOM
+
+  //HANDLE INPUT FIELD CHANGES
+  function handleChange(event) {
+    setSearchInput(event.target.value);
+    //if i put console.log(searchInput) here, it will look weird and lag one letter behind, that doesnt mean it isnt working
+    //i just should put the console.log (searchInput) in line 44
+  }
+  //HANDLING BUTTON WHEN TAPPED ON ENTER
+  function handleKeyPress(event) {
+    if (event.key == "Enter") {
+      // console.log("Pressed Enter");
+      // console.log(searchInput);
+      search();
+    }
+  }
+
   return (
     <div>
       <Container>
@@ -175,23 +181,26 @@ export default function HomeView() {
         </InputGroup>
       </Container>
       <Container>
-        <Row className="mx-2 row row-cols-4">
+        <Row className="row row-cols-4 mt-5">
           {/* mx-2 gives a margin */}
           {albums.map((album, index) => {
             console.log(album);
             return (
-              <Card key={index}>
-                <Card.Img
-                  src={album.images[1].url}
-                  className="card-image"
-                  onClick={(e) => getTracks(e)}
-                />
-
-                <Card.Title>{album.name}</Card.Title>
+              <Card key={index} className="p-3 mb-4 cards">
+                <Link to={`/album/${album.id}`}>
+                  <Card.Img
+                    src={album.images[1].url}
+                    className="card-image"
+                    onClick={(e) => getTracks(album.id)} //getting tracks
+                  />
+                </Link>
+                <Card.Title className="mt-2">{album.name}</Card.Title>
                 <Card.Text>Release Date: {album.release_date}</Card.Text>
                 <Button variant="warning">
                   {/* See All {album.total_tracks} tracks */}
-                  <a href={album.external_urls.spotify}>Listen To Tracks</a>
+                  <a href={album.external_urls.spotify} target="_blank">
+                    Listen To Tracks
+                  </a>
                 </Button>
               </Card>
             );
