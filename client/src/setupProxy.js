@@ -1,4 +1,5 @@
 //This would require back-end routes to all begin with /api or something, which is good preparation for SPA deployment.
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   app.use(

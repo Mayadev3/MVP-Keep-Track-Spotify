@@ -4,27 +4,23 @@ import "bootstrap/dist/css/bootstrap.min.css"; //this is a the css file used in 
 import { Routes, Route, Link } from "react-router-dom"; //Routes is just a container for Route
 import HomeView from "./components/HomeView";
 import UserView from "./components/UserView";
+import {
+  Container,
+  InputGroup,
+  FormControl,
+  Button,
+  Row,
+  Card,
+} from "react-bootstrap";
 
 function App() {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   //we create this useeffect to make sure the front end and the backend are connected
+
   // useEffect(() => {
-  //   fetch("/")
+  //   fetch("/api")
   //     .then((response) => response.json())
   //     .then((data) => console.log(data));
-  // }, []);
-  // useEffect(() => {
-  //   // declare the async data fetching function
-  //   const fetchData = async () => {
-  //     // get the data from the api
-  //     const response = await fetch("/");
-  //     // convert the data to json
-  //     const json = await response.json();
-
-  //     // set state with the result
-  //     setData(json);
-  //     console.log(data);
-  //   };
   // }, []);
 
   return (
