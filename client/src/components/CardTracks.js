@@ -59,26 +59,7 @@ export default function CardTracks() {
       });
   }, [accessToken]);
 
-  const postTrack = async (track_id) => {
-    let newTrack = { track_id };
-    let options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(tracks.id), //?????
-    };
-
-    try {
-      let response = await fetch("/album/:id", options);
-      if (response.ok) {
-        let data = await response.json();
-        setTracks(data);
-      } else {
-        console.log(`Server error: ${response.status}: ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Network error: ${err.message}`);
-    }
-  };
+  //CONNECTING TO THE FAVORITES DATABASE
 
   const getFavorites = async () => {
     fetch("/album/:id")
@@ -100,6 +81,45 @@ export default function CardTracks() {
         // upon failure, show error message
         console.log(`Error: ${error}`);
       });
+  };
+
+  const postTrack = async (track_id) => {
+    let newTrack = { track_id };
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newTrack), //?????
+    };
+
+    try {
+      let response = await fetch("/api/album/:id", options);
+      if (response.ok) {
+        let data = await response.json();
+        setTracks(data);
+      } else {
+        console.log(`Server error: ${response.status}: ${response.statusText}`);
+      }
+    } catch (err) {
+      console.log(`Network error: ${err.message}`);
+    }
+  };
+
+  const deleteTrack = async (track_id) => {
+    let options = {
+      method: "DELETE",
+    };
+
+    try {
+      let response = await fetch(`/api/album/:id`, options);
+      if (response.ok) {
+        let data = await response.json();
+        setTracks(data);
+      } else {
+        console.log(`Server Error: ${response.status} ${response.statusText}`);
+      }
+    } catch (err) {
+      console.log(`Network Error: ${err.message}`);
+    }
   };
 
   return (
