@@ -12,7 +12,7 @@ const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
 export default function CardTracks() {
   let [accessToken, setAccessToken] = useState("");
   let [tracks, setTracks] = useState([]);
-  let [album, setAlbum] = useState(null);
+  let [album, setAlbum] = useState(null); //we put it as null cause it is originally an empty object
 
   const { id } = useParams();
 
@@ -104,26 +104,32 @@ export default function CardTracks() {
 
   return (
     <div className="CardTracks">
-      <div className="try-outs">helloooooo from {id}</div>
-      <div className="album-tracks">
-        <img key={id} src={album?.images[1].url} />
-        {tracks.map((track, id) => (
-          <div className="tracks" key={id}>
-            <p>{track.track_number}</p>
-            <p>
-              {track.name}{" "}
-              <button
-                className="fave-button"
-                onClick={(e) => {
-                  postTrack(track.id);
-                }}
-              >
-                <BsBookmarkHeartFill />
-              </button>
-            </p>
-          </div>
-        ))}
+      {/* <div className="try-outs">helloooooo from {id}</div> */}
+      <div className="album-details">
+        <div className="album-Image">
+          <img key={id} src={album?.images[1].url} />
+          {/* this question mark is called optional chaining so that the when the data you want is undefined, instead of crippling your whole browser, it just shows undefined, explanation is in the objects slide.. he used it here because the object that has the image url is deeply nested..big object then array then objects again */}
+        </div>
+        <div className="album-trackings">
+          {tracks.map((track, id) => (
+            <div className="album-tracks" key={id}>
+              <p>{track.track_number}.</p>
+              <p>
+                {track.name}{" "}
+                <button
+                  className="fave-button"
+                  onClick={(e) => {
+                    postTrack(track.id);
+                  }}
+                >
+                  <BsBookmarkHeartFill />
+                </button>
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
+      <p>{album?.copyrights[0].text}</p>
     </div>
   );
 }

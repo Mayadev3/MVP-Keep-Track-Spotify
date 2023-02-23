@@ -16,6 +16,8 @@ import "./HomeView.css";
 //but the access token took longer to arrive so i couldnt get the info
 //to fix it, i let the useeffect of the album fetch to only fireoff
 //when the accesstoken has arrived
+//in the network part of the development tool, you can see waterfall which shows you
+//how long it took to get the token and how look it took to get the info from the api
 
 const CLIENT_ID = "00858dd1207649a1be2b9016330f67a1";
 const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
@@ -49,7 +51,7 @@ export default function HomeView() {
   //when you load the page, but when you have the accessToken in that array, then it will only fireoff
   //when the accesstoken has been received
   useEffect(() => {
-    console.log("the token has chamged", accessToken);
+    console.log("the token has changed", accessToken);
     search();
   }, [accessToken]);
   ///////////////////////////////////////////////////////////////////
