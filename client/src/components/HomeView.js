@@ -145,12 +145,12 @@ export default function HomeView() {
       .then((response) => response.json())
       .then((data) => {
         return data.items;
-      }); //so here we are saving the id in a variable called artistId
+      });
+
+    //so here we are saving the id in a variable called artistId
     // console.log("the artist id is:" + artistId);
     //get request with Artist ID and grab all the albums of that artist
   };
-
-  console.log(albums); // i am console.logging the albums outside the function so i can see if i am getting the data to be able to use it in the DOM
 
   //HANDLE INPUT FIELD CHANGES
   function handleChange(event) {
@@ -166,7 +166,9 @@ export default function HomeView() {
       search();
     }
   }
-
+  // console.log(albums);
+  // i am console.logging the albums outside the function
+  //so i can see if i am getting the data to be able to use it in the DOM
   return (
     <div>
       <Container>

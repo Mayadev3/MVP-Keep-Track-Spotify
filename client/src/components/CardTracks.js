@@ -8,7 +8,7 @@ const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
 export default function CardTracks() {
   let [accessToken, setAccessToken] = useState("");
   let [tracks, setTracks] = useState([]);
-  let [albumIm, setAlbumIm] = useState([]);
+  let [albumImages, setAlbumImages] = useState([]);
 
   const { id } = useParams();
 
@@ -46,27 +46,17 @@ export default function CardTracks() {
       .then((data) => {
         setTracks(data.items);
       });
-  }, []);
 
-  const albumImage = async (id) => {
-    let searchParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    };
-
-    await fetch(
+    fetch(
       "https://api.spotify.com/v1/albums/" + id,
 
       searchParameters
     )
       .then((response) => response.json())
       .then((data) => {
-        setAlbumIm(data.images);
+        setAlbumImages(data.images);
       });
-  };
+  }, []);
 
   return (
     <div className="CardTracks">
@@ -80,10 +70,9 @@ export default function CardTracks() {
         {tracks.map((track, index) => (
           <p key={index}>{track.track_number}</p>
         ))}
-
-        {/* {albumIm.map((image, index) => (
+        {albumImages.map((image, index) => (
           <img key={index} src={image.url} />
-        ))} */}
+        ))}
       </div>
     </div>
   );
