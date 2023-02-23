@@ -90,7 +90,7 @@ export default function HomeView() {
     )
       .then((response) => response.json())
       .then((data) => {
-        setAlbums(data.albums.items);
+        setAlbums(data.albums.items); //setAlbums(data.albums.items)
       }); //so here we are saving the id in a variable called artistId
     // console.log("the artist id is " + artistId);
     //get request with Artist ID and grab all the albums of that artist
@@ -152,7 +152,7 @@ export default function HomeView() {
   // i am console.logging the albums outside the function
   //so i can see if i am getting the data to be able to use it in the DOM
   return (
-    <div>
+    <div className="HomeView">
       <Container>
         <InputGroup className="mb-3 mt-5" size="lg">
           <FormControl
@@ -161,7 +161,9 @@ export default function HomeView() {
             onKeyPress={(e) => handleKeyPress(e)}
             onChange={(e) => handleChange(e)}
           />
-          <Button onClick={search}>Search</Button>
+          <Button onClick={search} className="search-button">
+            Search
+          </Button>
         </InputGroup>
       </Container>
       <Container>
@@ -179,9 +181,13 @@ export default function HomeView() {
                 </Link>
                 <Card.Title className="mt-2">{album.name}</Card.Title>
                 <Card.Text>Release Date: {album.release_date}</Card.Text>
-                <Button variant="warning">
+                <Button className="listen-button">
                   {/* See All {album.total_tracks} tracks */}
-                  <a href={album.external_urls.spotify} target="_blank">
+                  <a
+                    href={album.external_urls.spotify}
+                    target="_blank"
+                    className="listen-link"
+                  >
                     Listen To Tracks
                   </a>
                 </Button>

@@ -1,9 +1,45 @@
 * {
   box-sizing: border-box;
 }
+.HomeView {
+  background-color: #121212;
+  color: white;
+}
+.search-button {
+  background-color: #1db954;
+  color: black;
+  border: none;
+}
+.search-button:hover {
+  background-color: #39e074;
+  color: black;
+}
+.cards {
+  background-color: #121212c5;
+}
+.card:hover {
+  background-color: #1e1b1b;
+  box-shadow: white 0px 7px 29px 0px;
+}
 .card-image {
   cursor: pointer;
 }
-a {
+.listen-button {
+  background-color: #1db954;
+  border: none;
+  width: 140px;
+  margin: 0 auto;
+}
+.listen-button:hover {
+  background-color: #39e074;
+  box-shadow: rgba(232, 232, 239, 0.715) 0px 50px 100px -20px,
+    rgba(255, 244, 244, 0.3) 0px 30px 60px -30px;
+}
+.listen-link {
   text-decoration: none;
+  color: black;
+  font-weight: 600;
+}
+.listen-link:hover {
+  color: #000000;
 }

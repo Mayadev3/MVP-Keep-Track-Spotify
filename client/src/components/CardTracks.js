@@ -13,7 +13,7 @@ export default function CardTracks() {
   let [accessToken, setAccessToken] = useState("");
   let [tracks, setTracks] = useState([]);
   let [album, setAlbum] = useState(null); //we put it as null cause it is originally an empty object
-
+  let [trackId, setTrackId] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -59,10 +59,34 @@ export default function CardTracks() {
       });
   }, [accessToken]);
 
+  const getTrackId = async () => {
+    let searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+    };
+
+    await fetch(
+      "https:api.spotify.com/v1/albums/" + id + "/tracks",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.items); //track id will be track.id after looping through tracksId state
+      });
+  };
+
   //CONNECTING TO THE FAVORITES DATABASE
 
+  //so the front end uses the route to tell the server how to manage the database in this route
+  //here the front end is telling the server to get all the favorites from the database
+
+  //those functions are me giving the user the different ways he can use my api
+  //in other words what kind of data can be displayed on the screen and what you can do with it in the front end
   const getFavorites = async () => {
-    fetch("/album/:id")
+    fetch("/favorites")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -73,7 +97,7 @@ export default function CardTracks() {
         }
       })
       .then((data) => {
-        // upon success, update tasks
+        // upon success, update tracks
         setTracks(data.items);
         // console.log(json);
       })
@@ -83,18 +107,19 @@ export default function CardTracks() {
       });
   };
 
-  const postTrack = async (track_id) => {
+  const addTrack = async (track_id) => {
     let newTrack = { track_id };
     let options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newTrack), //?????
+      body: JSON.stringify(newTrack), //this is to the backend body
     };
 
     try {
-      let response = await fetch("/api/album/:id", options);
+      let response = await fetch("/favorites", options); //here i am telling the server to add the new track to the database with all my favorites
       if (response.ok) {
         let data = await response.json();
+        //here the front end is saying hey server, if you were able to add the track to the database, then bring all my favorite tracks back and put them in a state so i can access them in the front end
         setTracks(data);
       } else {
         console.log(`Server error: ${response.status}: ${response.statusText}`);
@@ -110,7 +135,7 @@ export default function CardTracks() {
     };
 
     try {
-      let response = await fetch(`/api/album/:id`, options);
+      let response = await fetch(`/favorites`, options);
       if (response.ok) {
         let data = await response.json();
         setTracks(data);
@@ -133,13 +158,13 @@ export default function CardTracks() {
         <div className="album-trackings">
           {tracks.map((track, id) => (
             <div className="album-tracks" key={id}>
-              <p>{track.track_number}.</p>
+              <p>{track.track_number}</p>
               <p>
                 {track.name}{" "}
                 <button
                   className="fave-button"
                   onClick={(e) => {
-                    postTrack(track.id);
+                    getTrackId();
                   }}
                 >
                   <BsBookmarkHeartFill />
