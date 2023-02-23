@@ -11,16 +11,23 @@ import {
 } from "react-bootstrap";
 import "./HomeView.css";
 
+//we had an issue with getting the albums and the access tokens
+//we are trying to get the albums and the access token at the same time
+//but the access token took longer to arrive so i couldnt get the info
+//to fix it, i let the useeffect of the album fetch to only fireoff
+//when the accesstoken has arrived
+
 const CLIENT_ID = "00858dd1207649a1be2b9016330f67a1";
 const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
 
 export default function HomeView() {
-  let [searchInput, setSearchInput] = useState("");
+  let [searchInput, setSearchInput] = useState("Elton John");
   let [accessToken, setAccessToken] = useState("");
   let [albums, setAlbums] = useState([]);
 
   //USEFFECT TO GET ACCESS TOKEN
   useEffect(() => {
+    console.log("useEffect");
     let authParameters = {
       //this is to fetch our access token
       method: "POST",
@@ -37,41 +44,14 @@ export default function HomeView() {
       .then((data) => setAccessToken(data.access_token)); //if you put it in a console.log instead of a state you will be getting the access token in the console
   }, []);
 
-  //USEEFFECT TO GET ALBUMS///everything stops working when i biring this back???
+  //USEEFFECT TO GET ALBUMS
+  //useEffect is a watcher, it looks at what is in the array, if it is empty then it fires off immediately
+  //when you load the page, but when you have the accessToken in that array, then it will only fireoff
+  //when the accesstoken has been received
   useEffect(() => {
-    let searchParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    };
-    //in the fetch url to start adding variables you put a ? then put the first variable
-    //we use the & to say what the next varibale is
-
-    //get request using search to get the Artist ID
-    // let artistId = fetch(
-    //   "https://api.spotify.com/v1/search?q=" +
-    //     "taylor%20swift" +
-    //     "&type=artist", //if i put &type=album,track then i get the albums name and name of tracks on it
-    //   searchParameters
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     return data.artists.items[0].id;
-    //   }); //so here we are saving the id in a variable called artistId
-    // console.log("the artist id is" + artistId);
-    //get request with Artist ID and grab all the albums of that artist
-
-    let artistId = fetch(
-      "https://api.spotify.com/v1/search?q=" + "elton%20john" + "&type=album", //if i put &type=album,track then i get the albums name and name of tracks on it
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setAlbums(data.albums.items);
-      });
-  }, []);
+    console.log("the token has chamged", accessToken);
+    search();
+  }, [accessToken]);
   ///////////////////////////////////////////////////////////////////
   //WAS USING THIS IN THE USEEFFECT TO SHOW ALBUMS BUT CHANGED TO USING NAME INSTEED OF ARTIST ID
   //   let returnedAlbums = fetch(
@@ -186,13 +166,12 @@ export default function HomeView() {
         <Row className="row row-cols-4 mt-5">
           {/* mx-2 gives a margin */}
           {albums.map((album, index) => {
-            console.log(album);
             return (
               <Card key={index} className="p-3 mb-4 cards">
                 <Link to={`/album/${album.id}`}>
                   <Card.Img
                     src={album.images[1].url}
-                    className="card-image"
+                    className="card-image img-fluid"
                     onClick={(e) => getTracks(album.id)} //getting tracks
                   />
                 </Link>

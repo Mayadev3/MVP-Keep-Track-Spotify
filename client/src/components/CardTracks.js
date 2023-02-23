@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BsBookmarkHeartFill } from "react-icons/bs";
+import "./CardTracks.css";
+
+//the spotify api is my source of truth the same way my
+//database was the source of truth in exercises before
 
 const CLIENT_ID = "00858dd1207649a1be2b9016330f67a1";
 const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
@@ -8,7 +12,7 @@ const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
 export default function CardTracks() {
   let [accessToken, setAccessToken] = useState("");
   let [tracks, setTracks] = useState([]);
-  let [albumImages, setAlbumImages] = useState([]);
+  let [album, setAlbum] = useState(null);
 
   const { id } = useParams();
 
@@ -38,13 +42,10 @@ export default function CardTracks() {
       },
     };
 
-    fetch(
-      "https:api.spotify.com/v1/albums/" + id + "/tracks", //if i put &type=album,track then i get the albums name and name of tracks on it
-      searchParameters
-    )
+    fetch("https:api.spotify.com/v1/albums/" + id + "/tracks", searchParameters)
       .then((response) => response.json())
       .then((data) => {
-        setTracks(data.items);
+        setTracks(data.items); //track id will be track.id after looping through tracks
       });
 
     fetch(
@@ -54,28 +55,77 @@ export default function CardTracks() {
     )
       .then((response) => response.json())
       .then((data) => {
-        setAlbumImages(data.images);
+        setAlbum(data);
       });
-  }, []);
+  }, [accessToken]);
+
+  const postTrack = async (track_id) => {
+    let newTrack = { track_id };
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(tracks.id), //?????
+    };
+
+    try {
+      let response = await fetch("/album/:id", options);
+      if (response.ok) {
+        let data = await response.json();
+        setTracks(data);
+      } else {
+        console.log(`Server error: ${response.status}: ${response.statusText}`);
+      }
+    } catch (err) {
+      console.log(`Network error: ${err.message}`);
+    }
+  };
+
+  const getFavorites = async () => {
+    fetch("/album/:id")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(
+            `Server error: ${response.status}: ${response.statusText}`
+          );
+        }
+      })
+      .then((data) => {
+        // upon success, update tasks
+        setTracks(data.items);
+        // console.log(json);
+      })
+      .catch((error) => {
+        // upon failure, show error message
+        console.log(`Error: ${error}`);
+      });
+  };
 
   return (
     <div className="CardTracks">
       <div className="try-outs">helloooooo from {id}</div>
       <div className="album-tracks">
-        {tracks.map((track, index) => (
-          <p key={index}>
-            {track.name} <BsBookmarkHeartFill />
-          </p>
-        ))}
-        {tracks.map((track, index) => (
-          <p key={index}>{track.track_number}</p>
-        ))}
-        {albumImages.map((image, index) => (
-          <img key={index} src={image.url} />
+        <img key={id} src={album?.images[1].url} />
+        {tracks.map((track, id) => (
+          <div className="tracks" key={id}>
+            <p>{track.track_number}</p>
+            <p>
+              {track.name}{" "}
+              <button
+                className="fave-button"
+                onClick={(e) => {
+                  postTrack(track.id);
+                }}
+              >
+                <BsBookmarkHeartFill />
+              </button>
+            </p>
+          </div>
         ))}
       </div>
     </div>
   );
 }
-// // grab id from the url and fetch info ... useParams
-// // add  in useEffect
+
+//in map... to have multiple html elements you need to wrap them in a div
