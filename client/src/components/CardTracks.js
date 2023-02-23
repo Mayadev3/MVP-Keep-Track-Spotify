@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { BsBookmarkHeartFill } from "react-icons/bs";
 
 const CLIENT_ID = "00858dd1207649a1be2b9016330f67a1";
 const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
@@ -72,7 +73,9 @@ export default function CardTracks() {
       <div className="try-outs">helloooooo from {id}</div>
       <div className="album-tracks">
         {tracks.map((track, index) => (
-          <p key={index}>{track.name}</p>
+          <p key={index}>
+            {track.name} <BsBookmarkHeartFill />
+          </p>
         ))}
         {tracks.map((track, index) => (
           <p key={index}>{track.track_number}</p>
