@@ -5,4 +5,11 @@
 
 nav {
   background-color: #121212;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.nav-link {
+  color: red;
 }

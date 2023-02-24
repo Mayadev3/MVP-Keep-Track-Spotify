@@ -9,12 +9,10 @@ import CardTracks from "./components/CardTracks";
 function App() {
   return (
     <div className="App">
-      <Link to="/" className="nav-link">
-        Home
-      </Link>{" "}
-      <Link to="/favorites" className="nav-link">
-        My Favorite Tracks
-      </Link>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/favorites">My Favorite Tracks</Link>
+      </nav>
       <Routes>
         <Route path="/" element={<HomeView />} />
         <Route path="/favorites" element={<FavoritesView />} />

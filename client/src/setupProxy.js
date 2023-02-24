@@ -10,3 +10,4 @@ module.exports = function (app) {
     })
   );
 };
+//here it is saying use the /api with every backend route like : /api/favorites NOT /favorites only

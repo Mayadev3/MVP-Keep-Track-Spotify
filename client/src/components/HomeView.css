@@ -3,7 +3,6 @@
 }
 .HomeView {
   background-color: #121212;
-  color: white;
 }
 .search-button {
   background-color: #1db954;
@@ -20,6 +19,9 @@
 .card:hover {
   background-color: #1e1b1b;
   box-shadow: white 0px 7px 29px 0px;
+}
+.card-texts {
+  color: white;
 }
 .card-image {
   cursor: pointer;

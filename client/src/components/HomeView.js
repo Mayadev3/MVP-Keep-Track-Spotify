@@ -179,8 +179,12 @@ export default function HomeView() {
                     onClick={(e) => getTracks(album.id)} //getting tracks
                   />
                 </Link>
-                <Card.Title className="mt-2">{album.name}</Card.Title>
-                <Card.Text>Release Date: {album.release_date}</Card.Text>
+                <Card.Title className="mt-2 card-texts">
+                  {album.name}
+                </Card.Title>
+                <Card.Text className="card-texts">
+                  Release Date: {album.release_date}
+                </Card.Text>
                 <Button className="listen-button">
                   {/* See All {album.total_tracks} tracks */}
                   <a
