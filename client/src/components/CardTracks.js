@@ -70,16 +70,20 @@ export default function CardTracks() {
   //those functions are me giving the user the different ways he can use my api
   //in other words what kind of data can be displayed on the screen and what you can do with it in the front end
 
-  //WHEN I CLICK ON FAVORITES, INSERT THE TRACK ID INTO THE DATABASE
+  //WHEN I CLICK ON FAVORITES, INSERT THE TRACK ID, TRACK NAME AND ALBUM IMAGE INTO THE DATABASE
   //with the console.log you can see how the ids are added to the array of objects
   //when i click on the heart, in my console i will see an array objects with the track id and when i go to postman and click get in the /api/favorites i will see how it has been added
-  const postTrackId = async (trackId) => {
+  const postTrack = async (trackId, trackName, albumImage) => {
     let searchParameters = {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ track_id: trackId }),
+      body: JSON.stringify({
+        track_id: trackId,
+        track_name: trackName,
+        album_image: albumImage,
+      }),
     };
 
     await fetch("/api/favorites", searchParameters)
@@ -89,9 +93,9 @@ export default function CardTracks() {
       });
   };
 
-  // ADDING TRACKS FOR FAVORITES USING POST
-  const addTrack = async (track_id) => {
-    let newTrack = { track_id };
+  // ADDING TRACKS FOR FAVORITES USING POST SO IT SHOWS IN THE FavoritesView
+  const addTrack = async (track_id, track_name, album_image) => {
+    let newTrack = { track_id, track_name, album_image };
     //here i am saying put the newTrack in the object with the key called track_id to look like this { "track_id": "newTrack"}
     let options = {
       method: "POST",
@@ -114,24 +118,6 @@ export default function CardTracks() {
     }
   };
 
-  const deleteTrack = async (track_id) => {
-    let options = {
-      method: "DELETE",
-    };
-
-    try {
-      let response = await fetch(`/api/favorites`, options);
-      if (response.ok) {
-        let data = await response.json();
-        setTracks(data);
-      } else {
-        console.log(`Server Error: ${response.status} ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Network Error: ${err.message}`);
-    }
-  };
-
   return (
     <div className="CardTracks">
       {/* <div className="try-outs">helloooooo from {id}</div> */}
@@ -149,7 +135,7 @@ export default function CardTracks() {
                 <button
                   className="fave-button"
                   onClick={(e) => {
-                    postTrackId(track.id); //this is after the looping
+                    postTrack(track.id, track.name, album?.images[2].url); //this is after the looping on line 130 and then i am sending the track.id up as a parameter to line 76 along with the others
                   }}
                 >
                   <BsBookmarkHeartFill />

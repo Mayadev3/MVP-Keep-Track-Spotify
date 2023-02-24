@@ -1,15 +1,11 @@
 .App {
   text-align: center;
-  background-color: #121212;
+  /* background-color: #121212; */
 }
 
 nav {
-  background-color: #121212;
   padding: 30px;
   display: flex;
   flex-direction: column;
   gap: 7px;
-}
-.nav-link {
-  color: red;
 }

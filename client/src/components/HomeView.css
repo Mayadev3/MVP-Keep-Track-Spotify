@@ -1,9 +1,9 @@
 * {
   box-sizing: border-box;
 }
-.HomeView {
+/* .HomeView {
   background-color: #121212;
-}
+} */
 .search-button {
   background-color: #1db954;
   color: black;
@@ -17,7 +17,7 @@
   background-color: #121212c5;
 }
 .card:hover {
-  background-color: #1e1b1b;
+  background-color: #353131;
   box-shadow: white 0px 7px 29px 0px;
 }
 .card-texts {

@@ -4,9 +4,10 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var favoritesRouter = require("./routes/favorites"); //this is the positions of the files
 
 const cors = require("cors"); // add at the top
+const { start } = require("repl");
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));// this is responsible for the public directory file
 
 app.use("/api", indexRouter);
-app.use("/users", usersRouter);
-
+app.use("/api/favorites", favoritesRouter);
+//when i am using the file favorites.js i am going to this route
+//  and /api/favorites or /api/something for all the extra routes
 module.exports = app;
