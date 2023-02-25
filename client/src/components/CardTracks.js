@@ -123,7 +123,9 @@ export default function CardTracks() {
       {/* <div className="try-outs">helloooooo from {id}</div> */}
       <div className="album-details">
         <div className="album-Image">
-          <img key={id} src={album?.images[1].url} />
+          <a>
+            <img key={id} src={album?.images[1].url} />
+          </a>
           {/* this question mark is called optional chaining so that the when the data you want is undefined, instead of crippling your whole browser, it just shows undefined, explanation is in the objects slide.. he used it here because the object that has the image url is deeply nested..big object then array then objects again */}
         </div>
         <div className="album-trackings">

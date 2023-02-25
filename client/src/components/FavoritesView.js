@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import "./FavoritesView.css";
+import { CiTrash } from "react-icons/ci";
 
 export default function FavoritesView() {
   //GET THE TRACKNAMES, TRACKID, TRACKALBUM IMAGE FROM THE DATABASE
@@ -33,11 +34,13 @@ export default function FavoritesView() {
 
   const deleteFavorite = async (id) => {
     let options = {
-      method: "delete",
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ track_id: id }),
     };
 
     try {
-      let response = await fetch(`/api/favorites${id}`, options);
+      let response = await fetch(`/api/favorites`, options);
       if (response.ok) {
         let data = await response.json();
         setFavorites(data);
@@ -53,11 +56,16 @@ export default function FavoritesView() {
     <div className="FavoritesView">
       <h1>Favorite Tracks</h1>
 
-      {favorites.map((favorite, id) => (
-        <div>
-          <img key={id} src={favorite.album_image} />
+      {favorites.map((favorite) => (
+        <div key={favorite.id} className="favorites">
+          <img src={favorite.album_image} className="fave-image" />
           <p>{favorite.track_name}</p>
-          <button onClick={(e) => deleteFavorite(id)}>delete</button>
+          <button onClick={(e) => deleteFavorite(favorite.track_id)}>
+            <div className="button-info">
+              <CiTrash className="trash-icon" />{" "}
+              <span className="delete-text"> Delete</span>
+            </div>
+          </button>
         </div>
       ))}
     </div>

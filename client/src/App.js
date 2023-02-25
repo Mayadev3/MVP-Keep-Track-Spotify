@@ -9,10 +9,21 @@ import CardTracks from "./components/CardTracks";
 function App() {
   return (
     <div className="App">
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/favorites">My Favorite Tracks</Link>
+      <nav className="nav">
+        <Link to="/" className="link1">
+          <iframe
+            src="https://giphy.com/embed/hD1TSlavNv114vTaME"
+            width="160"
+            height="100"
+            className="giphy-embed"
+          ></iframe>{" "}
+          Home
+        </Link>
+        <Link to="/favorites" className="link2">
+          My Favorite Tracks
+        </Link>
       </nav>
+
       <Routes>
         <Route path="/" element={<HomeView />} />
         <Route path="/favorites" element={<FavoritesView />} />

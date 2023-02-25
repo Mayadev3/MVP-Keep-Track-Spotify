@@ -1,0 +1,35 @@
+.favorites {
+  display: flex;
+  justify-content: center;
+
+  width: 60%;
+  margin-left: 0px;
+  margin-right: auto;
+  gap: 20px;
+  border-bottom: black;
+}
+.fave-image {
+  border-radius: 50%;
+  width: 40px;
+}
+button {
+  border: none;
+  background-color: #000080;
+  border-radius: 6px;
+  width: 90px;
+  color: white;
+  display: flex;
+
+  text-align: center;
+}
+
+.delete-text {
+  margin: 10px auto;
+}
+.button-info {
+  margin: 5px auto;
+}
+.trash-icon {
+  font-size: 20px;
+  /* margin-top: 10px; */
+}

@@ -10,6 +10,7 @@ import {
   Card,
 } from "react-bootstrap";
 import "./HomeView.css";
+import { AiOutlinePlayCircle } from "react-icons/ai";
 
 //we had an issue with getting the albums and the access tokens
 //we are trying to get the albums and the access token at the same time
@@ -23,7 +24,7 @@ const CLIENT_ID = "00858dd1207649a1be2b9016330f67a1";
 const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
 
 export default function HomeView() {
-  let [searchInput, setSearchInput] = useState("Elton John");
+  let [searchInput, setSearchInput] = useState("Cold Play");
   let [accessToken, setAccessToken] = useState("");
   let [albums, setAlbums] = useState([]);
 
@@ -153,6 +154,9 @@ export default function HomeView() {
   //so i can see if i am getting the data to be able to use it in the DOM
   return (
     <div className="HomeView">
+      <h1 className="header">
+        <strong>Keep Track</strong>
+      </h1>
       <Container>
         <InputGroup className="mb-3 mt-5" size="lg">
           <FormControl
@@ -179,22 +183,24 @@ export default function HomeView() {
                     onClick={(e) => getTracks(album.id)} //getting tracks
                   />
                 </Link>
-                <Card.Title className="mt-2 card-texts">
-                  {album.name}
-                </Card.Title>
-                <Card.Text className="card-texts">
-                  Release Date: {album.release_date}
-                </Card.Text>
-                <Button className="listen-button">
-                  {/* See All {album.total_tracks} tracks */}
-                  <a
-                    href={album.external_urls.spotify}
-                    target="_blank"
-                    className="listen-link"
-                  >
-                    Listen To Tracks
-                  </a>
-                </Button>
+                <div className="card-details">
+                  <Card.Title className="mt-2 card-texts">
+                    {album.name}
+                  </Card.Title>
+                  <Card.Text className="card-texts">
+                    Release Date: {album.release_date}
+                  </Card.Text>
+                </div>
+                {/* <Button className="listen-button"> */}
+                {/* See All {album.total_tracks} tracks */}
+                <a
+                  href={album.external_urls.spotify}
+                  target="_blank"
+                  className="listen-link"
+                >
+                  <AiOutlinePlayCircle />
+                </a>
+                {/* </Button> */}
               </Card>
             );
           })}
