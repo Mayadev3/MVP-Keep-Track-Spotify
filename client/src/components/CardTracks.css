@@ -1,18 +1,54 @@
-.fave-button {
-  border: none;
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Permanent+Marker&family=Phudu:wght@500&family=Roboto+Condensed&family=Staatliches&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.CardTracks {
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: #121212;
+  height: 170vh;
+}
+
+.image {
+  margin-top: 30px;
+  margin-left: 140px;
+  border-radius: 8px;
+  box-shadow: white 0px 7px 29px 0px;
+}
+.album-trackings {
+  text-align: left;
+}
+ul {
+  list-style: none;
+
+  text-align: left;
+}
+li {
+  text-align: left;
+}
+.track-number {
+  margin-right: 8px;
 }
 .album-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 50px;
+  color: white;
 }
-.album-tracks {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
+.fave-button {
+  border: none;
+  background-color: #121212;
+  color: white;
+  margin-left: 7px;
 }
 
-.CardTracks {
-  background-color: white;
+.copy-rights {
+  color: white;
+  margin-top: 88px;
+  text-align: center;
+}
+.active {
+  color: red;
 }

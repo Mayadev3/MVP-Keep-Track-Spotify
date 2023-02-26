@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { BsBookmarkHeartFill } from "react-icons/bs";
+// import { BsBookmarkHeartFill } from "react-icons/bs";
+import { GiSelfLove } from "react-icons/gi";
 import "./CardTracks.css";
 
 //the spotify api is my source of truth the same way my
@@ -14,7 +15,7 @@ export default function CardTracks() {
   let [accessToken, setAccessToken] = useState("");
   let [tracks, setTracks] = useState([]);
   let [album, setAlbum] = useState(null); //we put it as null cause it is originally an empty object
-
+  let [loved, setLoved] = useState(false);
   const { id } = useParams(); //this is a way to pass the album.id from the homeview to here and use it in my fetches instead of in a state
 
   useEffect(() => {
@@ -73,7 +74,13 @@ export default function CardTracks() {
   //WHEN I CLICK ON FAVORITES, INSERT THE TRACK ID, TRACK NAME AND ALBUM IMAGE INTO THE DATABASE
   //with the console.log you can see how the ids are added to the array of objects
   //when i click on the heart, in my console i will see an array objects with the track id and when i go to postman and click get in the /api/favorites i will see how it has been added
-  const postTrack = async (trackId, trackName, albumImage) => {
+  const postTrack = async (
+    trackId,
+    trackName,
+    albumImage,
+    albumName,
+    albumLink
+  ) => {
     let searchParameters = {
       method: "post",
       headers: {
@@ -83,6 +90,8 @@ export default function CardTracks() {
         track_id: trackId,
         track_name: trackName,
         album_image: albumImage,
+        album_name: albumName,
+        album_link: albumLink,
       }),
     };
 
@@ -94,8 +103,20 @@ export default function CardTracks() {
   };
 
   // ADDING TRACKS FOR FAVORITES USING POST SO IT SHOWS IN THE FavoritesView
-  const addTrack = async (track_id, track_name, album_image) => {
-    let newTrack = { track_id, track_name, album_image };
+  const addTrack = async (
+    track_id,
+    track_name,
+    album_image,
+    album_name,
+    album_link
+  ) => {
+    let newTrack = {
+      track_id,
+      track_name,
+      album_image,
+      album_name,
+      album_link,
+    };
     //here i am saying put the newTrack in the object with the key called track_id to look like this { "track_id": "newTrack"}
     let options = {
       method: "POST",
@@ -118,36 +139,52 @@ export default function CardTracks() {
     }
   };
 
+  const toggle = (trackId) => {
+    let newTracks = [...tracks];
+    let trackVar = newTracks.find((tracky) => tracky.id === trackId);
+    trackVar.active = !trackVar.active;
+    setTracks((tracks) => newTracks);
+  };
+
   return (
     <div className="CardTracks">
       {/* <div className="try-outs">helloooooo from {id}</div> */}
       <div className="album-details">
         <div className="album-Image">
           <a>
-            <img key={id} src={album?.images[1].url} />
+            <img key={id} src={album?.images[1].url} className="image" />
           </a>
           {/* this question mark is called optional chaining so that the when the data you want is undefined, instead of crippling your whole browser, it just shows undefined, explanation is in the objects slide.. he used it here because the object that has the image url is deeply nested..big object then array then objects again */}
         </div>
         <div className="album-trackings">
           {tracks.map((track, id) => (
-            <div className="album-tracks" key={id}>
-              <p>{track.track_number}</p>
-              <p>
+            <ul className="album-tracks" key={id}>
+              <li>
+                <span className="track-number">{track.track_number}</span>
                 {track.name}{" "}
                 <button
                   className="fave-button"
                   onClick={(e) => {
-                    postTrack(track.id, track.name, album?.images[2].url); //this is after the looping on line 130 and then i am sending the track.id up as a parameter to line 76 along with the others
+                    postTrack(
+                      track.id,
+                      track.name,
+                      album?.images[2].url,
+                      album?.name,
+                      album.external_urls.spotify
+                    );
+                    toggle(id);
+                    //this is after the looping on line 130 and then i am sending the track.id up as a parameter to line 76 along with the others
                   }}
                 >
-                  <BsBookmarkHeartFill />
+                  {/* <BsBookmarkHeartFill /> */}
+                  {<GiSelfLove className={loved ? "active" : null} />}
                 </button>
-              </p>
-            </div>
+              </li>
+            </ul>
           ))}
         </div>
       </div>
-      <p>{album?.copyrights[0].text}</p>
+      <p className="copy-rights">{album?.copyrights[0].text}</p>
     </div>
   );
 }

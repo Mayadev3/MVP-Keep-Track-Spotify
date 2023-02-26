@@ -1,30 +1,55 @@
-.favorites {
-  display: flex;
-  justify-content: center;
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Permanent+Marker&family=Phudu:wght@500&family=Roboto+Condensed&family=Staatliches&display=swap");
 
+.FavoritesView {
+  background-color: #121212;
+  height: 200vh;
+  color: white;
+  font-family: "Roboto Condensed", sans-serif;
+}
+.the-whole {
+  border: 2px solid blue;
+  margin: 0 auto;
   width: 60%;
-  margin-left: 0px;
-  margin-right: auto;
-  gap: 20px;
-  border-bottom: black;
 }
+.favorites {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
 .fave-image {
-  border-radius: 50%;
+  border-radius: 10%;
   width: 40px;
+  margin-right: 20px;
 }
-button {
+.fave-image:hover {
+  box-shadow: white 0px 7px 29px 0px;
+}
+
+.track-name {
+  margin-right: 10px;
+  margin-top: 3px;
+}
+.fave-gift {
+  width: 100px;
+  height: 100px;
+}
+
+.delete-button {
   border: none;
   background-color: #000080;
   border-radius: 6px;
-  width: 90px;
+  width: 70px;
   color: white;
-  display: flex;
 
   text-align: center;
 }
-
+.delete-button:hover {
+  background-color: #3232d6;
+}
 .delete-text {
   margin: 10px auto;
+  font-size: 13px;
 }
 .button-info {
   margin: 5px auto;

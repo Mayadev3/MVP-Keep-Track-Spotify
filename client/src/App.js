@@ -7,16 +7,11 @@ import FavoritesView from "./components/FavoritesView";
 import CardTracks from "./components/CardTracks";
 
 function App() {
+  let [activation, setActivation] = useState(false);
   return (
     <div className="App">
       <nav className="nav">
         <Link to="/" className="link1">
-          <iframe
-            src="https://giphy.com/embed/hD1TSlavNv114vTaME"
-            width="160"
-            height="100"
-            className="giphy-embed"
-          ></iframe>{" "}
           Home
         </Link>
         <Link to="/favorites" className="link2">

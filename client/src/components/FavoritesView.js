@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./FavoritesView.css";
 import { CiTrash } from "react-icons/ci";
+import Giveaway from "./Giveaway.png";
 
 export default function FavoritesView() {
   //GET THE TRACKNAMES, TRACKID, TRACKALBUM IMAGE FROM THE DATABASE
@@ -54,20 +55,37 @@ export default function FavoritesView() {
 
   return (
     <div className="FavoritesView">
-      <h1>Favorite Tracks</h1>
-
-      {favorites.map((favorite) => (
-        <div key={favorite.id} className="favorites">
-          <img src={favorite.album_image} className="fave-image" />
-          <p>{favorite.track_name}</p>
-          <button onClick={(e) => deleteFavorite(favorite.track_id)}>
-            <div className="button-info">
-              <CiTrash className="trash-icon" />{" "}
-              <span className="delete-text"> Delete</span>
+      <div className="the-whole">
+        {favorites.map((favorite) => (
+          <div key={favorite.id} className="favorites">
+            {/* div */}
+            <div className="image-track-album">
+              <a
+                href={favorite.album_link}
+                alt={favorite.album_name}
+                target="_blank"
+              >
+                <img src={favorite.album_image} className="fave-image" />
+              </a>
+              <div className="both-names">
+                <p className="track-name">{favorite.track_name}</p>
+                <p className="album-name">{favorite.album_name}</p>
+              </div>
             </div>
-          </button>
-        </div>
-      ))}
+            <div className="the-delete">
+              <button
+                onClick={(e) => deleteFavorite(favorite.track_id)}
+                className="delete-button"
+              >
+                <div className="button-info">
+                  <CiTrash className="trash-icon" />{" "}
+                  <span className="delete-text"> Delete</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

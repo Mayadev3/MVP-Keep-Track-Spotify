@@ -6,7 +6,7 @@
 nav {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
   text-align: center;
   width: 200px;
   margin: 0 auto;
@@ -21,7 +21,7 @@ nav {
   transition: transform 0.5s ease;
 }
 .link1 {
-  margin: -8px;
+  margin-top: 30px;
 }
 .link1:hover,
 .link2:hover {

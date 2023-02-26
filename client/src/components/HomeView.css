@@ -8,6 +8,11 @@
   font-family: "Anton", sans-serif;
 }
 
+.giphy {
+  margin-top: -200px;
+  font-size: 20px;
+  margin-left: 200px;
+}
 .header {
   font-size: 150px;
   background-image: rgb(29, 185, 84);
@@ -34,6 +39,7 @@
   /* border: 2px solid red; */
   width: 70%;
   margin: 0 auto;
+  width: 100%;
 }
 @keyframes gradient {
   0% {

@@ -154,10 +154,16 @@ export default function HomeView() {
   //so i can see if i am getting the data to be able to use it in the DOM
   return (
     <div className="HomeView">
-      <h1 className="header">
-        <strong>Keep Track</strong>
-      </h1>
+      <iframe
+        src="https://giphy.com/embed/hD1TSlavNv114vTaME"
+        width="160"
+        height="100"
+        className="giphy"
+      ></iframe>{" "}
       <Container>
+        <h1 className="header">
+          <strong>Keep Track</strong>
+        </h1>
         <InputGroup className="mb-3 mt-5" size="lg">
           <FormControl
             placeholder="Search for Artist"
