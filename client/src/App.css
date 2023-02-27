@@ -28,3 +28,6 @@ nav {
   color: #1db954;
   transform: translateY(-3px);
 }
+.active {
+  color: #1db954;
+}

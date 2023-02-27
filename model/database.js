@@ -22,7 +22,7 @@ con.connect(function (err) {
 
   let sql =
     //always after making changes to the table here, go to the terminal and type: npm run migrate  so it puts the changes and new columns in your sql database
-    "DROP TABLE if exists favorites; CREATE TABLE favorites(id INT NOT NULL AUTO_INCREMENT, track_id VARCHAR(40) not null, track_name VARCHAR(200) not null, album_image VARCHAR(200) not null, album_name VARCHAR(300) not null, album_link VARCHAR(300) not null, PRIMARY KEY (id));";
+    "DROP TABLE if exists favorites; CREATE TABLE favorites(id INT NOT NULL AUTO_INCREMENT, track_id VARCHAR(40) not null, track_name VARCHAR(200) not null, album_image VARCHAR(200) not null, album_name VARCHAR(300) not null, album_link VARCHAR(300) not null, artist_name VARCHAR(200) not null, artist_url VARCHAR(200) not null, track_preview VARCHAR(300) not null, PRIMARY KEY (id));";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Table creation `favorites` was successful!");

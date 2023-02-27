@@ -18,7 +18,16 @@ router.get("/", function (req, res, next) {
 //i put the delete and post together for the love button so that if i already have that track in favorites
 //dont add it again, instead delete it
 router.post("/", async function (req, res, next) {
-  let { track_id, track_name, album_image, album_name, album_link } = req.body;
+  let {
+    track_id,
+    track_name,
+    album_image,
+    album_name,
+    album_link,
+    artist_name,
+    artist_url,
+    track_preview,
+  } = req.body;
 
   try {
     let sql = `select * from favorites where track_id= "${track_id}"`;
@@ -26,7 +35,7 @@ router.post("/", async function (req, res, next) {
     //if that track with that id doesnt exist and i ended up with an empty array piece in my favorites then insert it, or else delete it
     //this is all for the favorite button that toggles between adding and deleting
     if (results.data.length === 0) {
-      let sql = `insert into favorites (track_id, track_name, album_image, album_name, album_link) values ("${track_id}", "${track_name}", "${album_image}", "${album_name}", "${album_link}")`;
+      let sql = `insert into favorites (track_id, track_name, album_image, album_name, album_link, artist_name, artist_url, track_preview) values ("${track_id}", "${track_name}", "${album_image}", "${album_name}", "${album_link}"," ${artist_name}", "${artist_url}", "${track_preview}")`;
       await db(sql);
     } else {
       await db(`delete from favorites where track_id = "${track_id}"`);

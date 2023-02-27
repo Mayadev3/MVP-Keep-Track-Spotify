@@ -79,7 +79,10 @@ export default function CardTracks() {
     trackName,
     albumImage,
     albumName,
-    albumLink
+    albumLink,
+    artistName,
+    artistUrl,
+    trackPreview
   ) => {
     let searchParameters = {
       method: "post",
@@ -92,6 +95,9 @@ export default function CardTracks() {
         album_image: albumImage,
         album_name: albumName,
         album_link: albumLink,
+        artist_name: artistName,
+        artist_url: artistUrl,
+        track_preview: trackPreview,
       }),
     };
 
@@ -108,7 +114,10 @@ export default function CardTracks() {
     track_name,
     album_image,
     album_name,
-    album_link
+    album_link,
+    artist_name,
+    artist_url,
+    track_preview
   ) => {
     let newTrack = {
       track_id,
@@ -116,6 +125,9 @@ export default function CardTracks() {
       album_image,
       album_name,
       album_link,
+      artist_name,
+      artist_url,
+      track_preview,
     };
     //here i am saying put the newTrack in the object with the key called track_id to look like this { "track_id": "newTrack"}
     let options = {
@@ -151,7 +163,7 @@ export default function CardTracks() {
       {/* <div className="try-outs">helloooooo from {id}</div> */}
       <div className="album-details">
         <div className="album-Image">
-          <a>
+          <a href={album?.external_urls.spotify} target="_blank">
             <img key={id} src={album?.images[1].url} className="image" />
           </a>
           {/* this question mark is called optional chaining so that the when the data you want is undefined, instead of crippling your whole browser, it just shows undefined, explanation is in the objects slide.. he used it here because the object that has the image url is deeply nested..big object then array then objects again */}
@@ -160,25 +172,40 @@ export default function CardTracks() {
           {tracks.map((track, id) => (
             <ul className="album-tracks" key={id}>
               <li>
-                <span className="track-number">{track.track_number}</span>
-                {track.name}{" "}
-                <button
-                  className="fave-button"
-                  onClick={(e) => {
-                    postTrack(
-                      track.id,
-                      track.name,
-                      album?.images[2].url,
-                      album?.name,
-                      album.external_urls.spotify
-                    );
-                    toggle(id);
-                    //this is after the looping on line 130 and then i am sending the track.id up as a parameter to line 76 along with the others
-                  }}
-                >
-                  {/* <BsBookmarkHeartFill /> */}
-                  {<GiSelfLove className={loved ? "active" : null} />}
-                </button>
+                <div className="both-number-track">
+                  <span className="track-number">{track.track_number}</span>
+                  <a
+                    href={track.preview_url}
+                    target="_blank"
+                    className="track-listen"
+                  >
+                    {track.name}{" "}
+                  </a>
+                </div>
+                <div className="love-container">
+                  <button
+                    className="fave-button"
+                    onClick={(e) => {
+                      postTrack(
+                        track.id,
+                        track.name,
+                        album?.images[2].url,
+                        album?.name,
+                        album.external_urls.spotify,
+                        album.artists[0].name,
+                        album.artists[0].external_urls.spotify,
+                        track.preview_url
+                      );
+                      toggle(id);
+                      //this is after the looping on line 130 and then i am sending the track.id up as a parameter to line 76 along with the others
+                    }}
+                  >
+                    {/* <BsBookmarkHeartFill /> */}
+                    {<GiSelfLove className={loved ? "active" : null} />}
+                    {/* this is how you can put a class and a condition in the
+                  className: className={"pass " + loved ? "active" : null} */}
+                  </button>
+                </div>
               </li>
             </ul>
           ))}
