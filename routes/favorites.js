@@ -28,7 +28,6 @@ router.post("/", async function (req, res, next) {
     artist_url,
     track_preview,
   } = req.body;
-
   try {
     let sql = `select * from favorites where track_id= "${track_id}"`;
     let results = await db(sql);

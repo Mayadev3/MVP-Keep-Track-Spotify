@@ -11,11 +11,11 @@ import "./CardTracks.css";
 const CLIENT_ID = "00858dd1207649a1be2b9016330f67a1";
 const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
 
-export default function CardTracks() {
+export default function CardTracks(props) {
   let [accessToken, setAccessToken] = useState("");
   let [tracks, setTracks] = useState([]);
   let [album, setAlbum] = useState(null); //we put it as null cause it is originally an empty object
-  let [loved, setLoved] = useState(false);
+
   const { id } = useParams(); //this is a way to pass the album.id from the homeview to here and use it in my fetches instead of in a state
 
   useEffect(() => {
@@ -104,63 +104,12 @@ export default function CardTracks() {
     await fetch("/api/favorites", searchParameters)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        props.setFavoritesCb(data); //this prop is a function that updates the favorites when i add a new one
       });
-  };
-
-  // ADDING TRACKS FOR FAVORITES USING POST SO IT SHOWS IN THE FavoritesView
-  const addTrack = async (
-    track_id,
-    track_name,
-    album_image,
-    album_name,
-    album_link,
-    artist_name,
-    artist_url,
-    track_preview
-  ) => {
-    let newTrack = {
-      track_id,
-      track_name,
-      album_image,
-      album_name,
-      album_link,
-      artist_name,
-      artist_url,
-      track_preview,
-    };
-    //here i am saying put the newTrack in the object with the key called track_id to look like this { "track_id": "newTrack"}
-    let options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newTrack), //this is to the backend body
-    };
-
-    try {
-      let response = await fetch("/api/favorites", options); //here i am telling the server to add the new track to the database with all my favorites
-      if (response.ok) {
-        //response.ok is saying if it has been added successfully in the backend database then put the response in json format and put it in a front end state
-        let data = await response.json();
-        //here the front end is saying hey server, if you were able to add the track to the database, then bring all my favorite tracks back and put them in a state so i can access them in the front end
-        setTracks(data);
-      } else {
-        console.log(`Server error: ${response.status}: ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Network error: ${err.message}`);
-    }
-  };
-
-  const toggle = (trackId) => {
-    let newTracks = [...tracks];
-    let trackVar = newTracks.find((tracky) => tracky.id === trackId);
-    trackVar.active = !trackVar.active;
-    setTracks((tracks) => newTracks);
   };
 
   return (
     <div className="CardTracks">
-      {/* <div className="try-outs">helloooooo from {id}</div> */}
       <div className="album-details">
         <div className="album-Image">
           <a href={album?.external_urls.spotify} target="_blank">
@@ -169,46 +118,58 @@ export default function CardTracks() {
           {/* this question mark is called optional chaining so that the when the data you want is undefined, instead of crippling your whole browser, it just shows undefined, explanation is in the objects slide.. he used it here because the object that has the image url is deeply nested..big object then array then objects again */}
         </div>
         <div className="album-trackings">
-          {tracks.map((track, id) => (
-            <ul className="album-tracks" key={id}>
-              <li>
-                <div className="both-number-track">
-                  <span className="track-number">{track.track_number}</span>
-                  <a
-                    href={track.preview_url}
-                    target="_blank"
-                    className="track-listen"
-                  >
-                    {track.name}{" "}
-                  </a>
-                </div>
-                <div className="love-container">
-                  <button
-                    className="fave-button"
-                    onClick={(e) => {
-                      postTrack(
-                        track.id,
-                        track.name,
-                        album?.images[2].url,
-                        album?.name,
-                        album.external_urls.spotify,
-                        album.artists[0].name,
-                        album.artists[0].external_urls.spotify,
-                        track.preview_url
-                      );
-                      toggle(id);
-                      //this is after the looping on line 130 and then i am sending the track.id up as a parameter to line 76 along with the others
-                    }}
-                  >
-                    {/* <BsBookmarkHeartFill /> */}
-                    {<GiSelfLove className={loved ? "active" : null} />}
-                    {/* this is how you can put a class and a condition in the
+          {tracks.map((track, id) => {
+            let trackFavorite = props.favorites.some(
+              (favorite) => favorite.track_id === track.id
+            );
+            //favorites is an array which is my database
+            //some is an array method which checks if a certain item is in that array so here we are checking if the track we are clicking on is in the favorites database
+            //the find method returns a specific item or undefined if not , but the some looks if an element is in an array it returns true or false
+            return (
+              <ul className="album-tracks" key={id}>
+                <li>
+                  <div className="both-number-track">
+                    <span className="track-number">{track.track_number}</span>
+                    <a
+                      href={track.preview_url}
+                      target="_blank"
+                      className="track-listen"
+                    >
+                      {track.name}{" "}
+                    </a>
+                  </div>
+                  <div className="love-container">
+                    <button
+                      className="fave-button"
+                      onClick={(e) => {
+                        postTrack(
+                          track.id,
+                          track.name,
+                          album?.images[2].url,
+                          album?.name,
+                          album.external_urls.spotify,
+                          album.artists[0].name,
+                          album.artists[0].external_urls.spotify,
+                          track.preview_url
+                        );
+
+                        //this is after the looping on line 130 and then i am sending the track.id up as a parameter to line 76 along with the others
+                      }}
+                    >
+                      {
+                        <GiSelfLove
+                          className={trackFavorite ? "active" : null}
+                          id="icon"
+                        />
+                      }
+                      {/* this is how you can put a class and a condition in the
                   className: className={"pass " + loved ? "active" : null} */}
-                  </button>
-                </div>
-              </li>
-            </ul>
-          ))}
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            );
+          })}
         </div>
       </div>
       <p className="copy-rights">{album?.copyrights[0].text}</p>
@@ -217,3 +178,5 @@ export default function CardTracks() {
 }
 
 //in map... to have multiple html elements you need to wrap them in a div
+
+// {track.id === track_id ? }

@@ -12,6 +12,8 @@ import {
 import "./HomeView.css";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 
+//React router is a package or component...react packages can have hooks... we can also create our own hooks
+//react hooks are useEffect and useState
 //we had an issue with getting the albums and the access tokens
 //we are trying to get the albums and the access token at the same time
 //but the access token took longer to arrive so i couldnt get the info

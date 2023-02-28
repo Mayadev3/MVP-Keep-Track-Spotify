@@ -1,8 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Permanent+Marker&family=Phudu:wght@500&family=Roboto+Condensed&family=Staatliches&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Oswald:wght@500&family=Permanent+Marker&family=Phudu:wght@500&family=Roboto+Condensed&family=Staatliches&display=swap");
 .FavoritesView {
   background-color: #121212;
-  height: 200vh;
+  height: 500vh;
   color: white;
   font-family: "Roboto Condensed", sans-serif;
 }
@@ -10,6 +9,9 @@
   margin: 0 auto;
   margin-top: 30px;
   width: 70%;
+}
+th {
+  padding-bottom: 5px;
 }
 table {
   /* border: 2px solid blue; */
@@ -97,4 +99,24 @@ th {
 .trash-icon {
   font-size: 20px;
   /* margin-top: 10px; */
+}
+/* .album-header {
+  padding-left: 383px;
+  border-bottom: none;
+} */
+.headers {
+  display: flex;
+  justify-content: space-around;
+  /* margin-left: -60px;
+  border-bottom: none; */
+}
+.track-header {
+  margin-left: -73px;
+  border-bottom: none;
+  font-family: "Oswald", sans-serif;
+}
+.album-header {
+  margin-left: -80px;
+  border-bottom: none;
+  font-family: "Oswald", sans-serif;
 }
