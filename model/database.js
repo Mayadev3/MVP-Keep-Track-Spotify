@@ -1,7 +1,8 @@
 require("dotenv").config();
 const mysql = require("mysql");
 
-//this is the migration file
+//this is the migration file...which means that when i want to create a table i create it here and then i run  npm run migrate in the terminal
+//so that this table is created in mySQL
 
 const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;

@@ -1,7 +1,7 @@
 require("dotenv").config();
 const mysql = require("mysql");
 
-// this helper file helps connect to the database
+// this helper file helps connect to the database in MySQL
 
 module.exports = async function db(query) {
   const results = {
@@ -24,7 +24,7 @@ module.exports = async function db(query) {
 
     con.connect(function (err) {
       if (err) throw err;
-      console.log("Connected!");
+      console.log("Connected!"); //here it says when the connection between the application and the database is successful show connected! in the terminal
 
       con.query(query, function (err, result) {
         if (err) {

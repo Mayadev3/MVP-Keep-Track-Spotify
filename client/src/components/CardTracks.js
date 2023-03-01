@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-// import { BsBookmarkHeartFill } from "react-icons/bs";
 import { GiSelfLove } from "react-icons/gi";
 import "./CardTracks.css";
 
@@ -71,7 +70,7 @@ export default function CardTracks(props) {
   //those functions are me giving the user the different ways he can use my api
   //in other words what kind of data can be displayed on the screen and what you can do with it in the front end
 
-  //WHEN I CLICK ON FAVORITES, INSERT THE TRACK ID, TRACK NAME AND ALBUM IMAGE INTO THE DATABASE
+  //WHEN I CLICK ON FAVORITES, INSERT THE TRACK ID, TRACK NAME AND ALBUM IMAGE AND etc INTO THE DATABASE
   //with the console.log you can see how the ids are added to the array of objects
   //when i click on the heart, in my console i will see an array objects with the track id and when i go to postman and click get in the /api/favorites i will see how it has been added
   const postTrack = async (
@@ -104,7 +103,7 @@ export default function CardTracks(props) {
     await fetch("/api/favorites", searchParameters)
       .then((response) => response.json())
       .then((data) => {
-        props.setFavoritesCb(data); //this prop is a function that updates the favorites when i add a new one
+        props.setFavoritesCb(data); //this prop is a function that updates the favorites state data and this time i am telling it to change the favorites to this data
       });
   };
 
@@ -158,7 +157,7 @@ export default function CardTracks(props) {
                     >
                       {
                         <GiSelfLove
-                          className={trackFavorite ? "active" : null}
+                          className={trackFavorite ? "active" : null} //trackFavorite is a variable from line 121
                           id="icon"
                         />
                       }
@@ -178,5 +177,3 @@ export default function CardTracks(props) {
 }
 
 //in map... to have multiple html elements you need to wrap them in a div
-
-// {track.id === track_id ? }

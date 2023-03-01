@@ -3,55 +3,7 @@ import "./FavoritesView.css";
 import { CiTrash } from "react-icons/ci";
 
 export default function FavoritesView(props) {
-  //GET THE TRACKNAMES, TRACKID, TRACKALBUM IMAGE FROM THE DATABASE
-  // let [favorites, setFavorites] = useState([]);
-
-  // useEffect(() => {
-  //   getFavorites();
-  // }, []);
-
-  // const getFavorites = async () => {
-  //   fetch("/api/favorites") // this is the database address
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       } else {
-  //         throw new Error(
-  //           `Server error: ${response.status}: ${response.statusText}`
-  //         );
-  //       }
-  //     })
-  //     .then((data) => {
-  //       // upon success, update tracks
-  //      setFavorites(data);
-  //       // console.log(json);
-  //     })
-  //     .catch((error) => {
-  //       // upon failure, show error message
-  //       console.log(`Error: ${error}`);
-  //     });
-  // };
-
-  // const deleteFavorite = async (id) => {
-  //   let options = {
-  //     method: "post",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ track_id: id }),
-  //   };
-
-  //   try {
-  //     let response = await fetch(`/api/favorites`, options);
-  //     if (response.ok) {
-  //       let data = await response.json();
-  //       setFavorites(data);
-  //     } else {
-  //       console.log(`Server Error: ${response.status} ${response.statusText}`);
-  //     }
-  //   } catch (err) {
-  //     console.log(`Network Error: ${err.message} `);
-  //   }
-  // };
-
+  //here i am looping through my database info which was passed down from the App.js to here
   return (
     <div className="FavoritesView">
       <div className="the-whole">
@@ -75,6 +27,7 @@ export default function FavoritesView(props) {
                 </td>
                 <td className="both-track-artist">
                   {/* here i am saying if the preview listen isn't null then put the track name in a link or else dont put it in a link */}
+                  {/* i put the null in "" so it is "null" cause if i go to my api in localhost:3000/api/favorites.. i see that track_preview = "null" which is a json format */}
                   {favorite.track_preview !== "null" ? (
                     <a
                       href={favorite.track_preview}

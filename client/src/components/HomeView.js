@@ -32,7 +32,7 @@ export default function HomeView() {
 
   //USEFFECT TO GET ACCESS TOKEN
   useEffect(() => {
-    console.log("useEffect");
+    console.log("useEffect"); //this shows me the token each time i reload the browser
     let authParameters = {
       //this is to fetch our access token
       method: "POST",
@@ -54,25 +54,10 @@ export default function HomeView() {
   //when you load the page, but when you have the accessToken in that array, then it will only fireoff
   //when the accesstoken has been received
   useEffect(() => {
-    console.log("the token has changed", accessToken);
+    console.log("the token has changed", accessToken); //the reason i did console.logs regarding token in each useEffect is to compare the speed of receiving the token and the albums i am searching for
     search();
   }, [accessToken]);
-  ///////////////////////////////////////////////////////////////////
-  //WAS USING THIS IN THE USEEFFECT TO SHOW ALBUMS BUT CHANGED TO USING NAME INSTEED OF ARTIST ID
-  //   let returnedAlbums = fetch(
-  //     "https://api.spotify.com/v1/artists/" +
-  //       "06HL4z0CvFAxyc27GXpf02" +
-  //       "/albums" +
-  //       "?include_groups=album&market=US&limit=50",
-  //     searchParameters
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       // console.log(data);
-  //       setAlbums(data.items);
-  //     });
-  // }, []);
-  /////////////////////////////////////////////////////////////////////////
+
   //SEARCH FOR ALBUMS FUNCTION
   async function search() {
     // console.log(`Search for ${searchInput}`);
@@ -93,27 +78,16 @@ export default function HomeView() {
     )
       .then((response) => response.json())
       .then((data) => {
-        setAlbums(data.albums.items); //setAlbums(data.albums.items)
-      }); //so here we are saving the id in a variable called artistId
-    // console.log("the artist id is " + artistId);
-    //get request with Artist ID and grab all the albums of that artist
+        setAlbums(data.albums.items); //here i am putting an array of all the albums of the artist in the albums state so i can looping through it later
+      });
 
-    // let returnedAlbums = await fetch(
-    //   "https://api.spotify.com/v1/artists/" +
-    //     artistId +
-    //     "/albums" +
-    //     "?include_groups=album&market=US&limit=50",
-    //   searchParameters
-    // )
-    //   //display those albums to the user
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // console.log(data);//i see info of all albums
-    //     setAlbums(data.items);
-    //   });
+    //what i did before was saving the id in a variable called artistId so i can do another fetch and put it in the new url to fetch the albums with accordance to the artist id but germinal fetched the albums in accordance to the artist name instead so this way he did only one fetch instead of two
+    // console.log("the artist id is " + artistId);
   }
 
   //GET TRACKS OF ALBUM FUNCTION
+  //the albumId parameter is taken from the bottom on line 164.. i went from the bottom to the top
+  //so from the data i got from line 81, i got the album.id and put it in line 164 then used it as a parameter for this function so i can use it in my fetch url
   const getTracks = async (albumId) => {
     let searchParameters = {
       method: "GET",
@@ -129,23 +103,21 @@ export default function HomeView() {
     )
       .then((response) => response.json())
       .then((data) => {
-        return data.items;
+        return data.items; //here i put a return and not a state cause i want to pass that getTracks function to CardTracks view where i want to actually display my tracks
       });
-
-    //so here we are saving the id in a variable called artistId
-    // console.log("the artist id is:" + artistId);
-    //get request with Artist ID and grab all the albums of that artist
   };
 
   //HANDLE INPUT FIELD CHANGES
   function handleChange(event) {
     setSearchInput(event.target.value);
+    //the input field always changes the same as the token that always changes so that is why put it in a state
     //if i put console.log(searchInput) here, it will look weird and lag one letter behind, that doesnt mean it isnt working
-    //i just should put the console.log (searchInput) in line 44
+    //i just should put the console.log (searchInput) in line 121
   }
   //HANDLING BUTTON WHEN TAPPED ON ENTER
   function handleKeyPress(event) {
     if (event.key == "Enter") {
+      //search for different types of key events on google here : A Full List of Key Event Values
       // console.log("Pressed Enter");
       // console.log(searchInput);
       search();
@@ -185,6 +157,7 @@ export default function HomeView() {
             return (
               <Card key={index} className="p-3 mb-4 cards">
                 <Link to={`/album/${album.id}`}>
+                  {/* this link is filling in the id parameter with the album.id so i can use it as a parameter in CardTracks as an id in all my fetches in CardTRacks  */}
                   <Card.Img
                     src={album.images[1].url}
                     className="card-image img-fluid"
