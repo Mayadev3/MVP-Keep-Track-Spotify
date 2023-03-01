@@ -65,7 +65,7 @@ li:hover {
   color: white;
   margin-left: 7px;
 }
-#icon {
+.icon {
   font-size: 22px;
 }
 li:hover .fave-button {

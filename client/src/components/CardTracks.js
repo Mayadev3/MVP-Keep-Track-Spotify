@@ -157,12 +157,15 @@ export default function CardTracks(props) {
                     >
                       {
                         <GiSelfLove
-                          className={trackFavorite ? "active" : null} //trackFavorite is a variable from line 121
-                          id="icon"
+                          className={
+                            "icon " + (trackFavorite ? "active" : null)
+                          } //trackFavorite is a variable from line 121
                         />
                       }
-                      {/* this is how you can put a class and a condition in the
-                  className: className={"pass " + loved ? "active" : null} */}
+                      {/* this is how you can put a class and a condition in two ways:
+
+                  className={ "icon " + (trackFavorite ? "active" : null)}
+                      {/* className={`icon  ${trackFavorite ? "active" : null}`} */}
                     </button>
                   </div>
                 </li>
