@@ -35,29 +35,36 @@ export default function CardTracks(props) {
   }, []);
 
   useEffect(() => {
-    let searchParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    };
+    if (accessToken) {
+      let searchParameters = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+      };
 
-    fetch("https:api.spotify.com/v1/albums/" + id + "/tracks", searchParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        setTracks(data.items); //track id will be track.id after looping through tracks
-      });
+      console.log(`token changed on card tracks` + accessToken);
 
-    fetch(
-      "https://api.spotify.com/v1/albums/" + id,
+      fetch(
+        "https:api.spotify.com/v1/albums/" + id + "/tracks",
+        searchParameters
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setTracks(data.items); //track id will be track.id after looping through tracks
+        });
 
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setAlbum(data);
-      });
+      fetch(
+        "https://api.spotify.com/v1/albums/" + id,
+
+        searchParameters
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setAlbum(data);
+        });
+    }
   }, [accessToken]);
 
   //////////////////////////////////////////////////////////////////////////
