@@ -21,8 +21,6 @@ run npm install for the client side
 create a database called songs
 add this information in your .env file:
 DB_HOST=localhost
-DB_USER=root
-DB_PASS=root
 DB_NAME=songs
 
 Then go to the terminal in the project folder to create the favorites table and type this command: npm run migrate
