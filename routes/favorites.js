@@ -9,7 +9,7 @@ const db = require("../model/helper");
 
 router.get("/", function (req, res, next) {
   //this is /favorites
-  db(`select * from favorites ORDER BY id ASC;`)
+  db(`select * from favorites ORDER BY id ASC;`) //ASC is ascending
     .then((results) => {
       res.send(results.data);
     })

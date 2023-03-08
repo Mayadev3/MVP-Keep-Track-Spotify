@@ -2,6 +2,7 @@ require("dotenv").config();
 const mysql = require("mysql");
 const fs = require("fs");
 
+//REMEMBER, to create a database you have to do it through the MySQL Command CLient and the name of the database should match the name of the database on line 18..however to create the tables, you can do it through the file migrate.sql and then type npm run migrate in the command line
 //this is the migration file...which means that when i want to create a table i create it here and then i run  npm run migrate in the terminal
 //so that this table is created in mySQL
 

@@ -37,10 +37,11 @@ function App() {
   };
 
   const deleteFavorite = async (id) => {
+    //even though it is a delete, i put a post in the method cause in my favorites route it was a post and in it there was a post and delete
     let options = {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ track_id: id }),
+      body: JSON.stringify({ track_id: id }), //always json.stringify is an object
     };
 
     try {

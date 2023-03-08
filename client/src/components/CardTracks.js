@@ -36,6 +36,7 @@ export default function CardTracks(props) {
 
   useEffect(() => {
     if (accessToken) {
+      //we wrapped it with an if statement to fix the glitch cause it fetches the token twice at first there is no token and then the second time i get the token, so i am saying if there is a token then show the info
       let searchParameters = {
         method: "GET",
         headers: {

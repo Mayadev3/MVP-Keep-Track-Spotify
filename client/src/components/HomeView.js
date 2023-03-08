@@ -31,6 +31,7 @@ export default function HomeView() {
   let [albums, setAlbums] = useState([]);
 
   //USEFFECT TO GET ACCESS TOKEN
+  //compare this to the login route in auth.js in Matrimoney
   useEffect(() => {
     console.log("useEffect"); //this shows me the token each time i reload the browser
     let authParameters = {
@@ -42,6 +43,7 @@ export default function HomeView() {
         CLIENT_ID +
         "&client_secret=" +
         CLIENT_SECRET,
+      //the body is like line 39 in auth.js login in matrimoney
     };
     //API FETCH ACCESS TOKEN
     fetch("https://accounts.spotify.com/api/token", authParameters)
@@ -59,6 +61,7 @@ export default function HomeView() {
   }, [accessToken]);
 
   //SEARCH FOR ALBUMS FUNCTION
+  //compare this to the do_fetch function in Matrimoney API
   async function search() {
     // console.log(`Search for ${searchInput}`);
     let searchParameters = {
