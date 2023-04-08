@@ -1,4 +1,4 @@
-# Spotify web application (Spotify API)
+# Spotify - Full Stack Web Application (Spotify API)
 
 Get ready to rock out with my full-stack music web app! It's the ultimate destination for music lovers who want to jam out to their favorite tunes. With my app, you can easily search for albums from your favorite artists, listen to tracks, and even create your very own favorites playlist. So what are you waiting for? Start exploring, discovering and enjoying your favorite music with my full-stack music web app!
 
