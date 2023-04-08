@@ -3,29 +3,44 @@
 Get ready to rock out with my full-stack music web app! It's the ultimate destination for music lovers who want to jam out to their favorite tunes. With my app, you can easily search for albums from your favorite artists, listen to tracks, and even create your very own favorites playlist. So what are you waiting for? Start exploring, discovering and enjoying your favorite music with my full-stack music web app!
 
 
-## Run the project
+## Setup
 
-To run this project you will need to set some environment variables:
+### Dependencies
 
-Create a new file called .env inside the client folder.
-Create a new .env file in main folder.
-Run npm install on both main folder and client folder.
-Create a database called songs.
-Run npm run migrate on the back end to get Database.
+* Run `npm install` in project directory. This will install server-related dependencies such as `Express`
+* `cd client` and run `npm install`. This will install client dependencies.
+
+## Database Preparation
+
+* Access the MySQL interface in your terminal by running `mysql -u root -p`
+* Create a new database called songs: `create database songs`
+* Add the `.env` file in the project directory containing the MySQL authentication information for MySQL user. For example:
+
+  `DB_HOST=localhost`
+  
+  `DB_USER=root`
+  
+  `DB_NAME=songs`
+  
+  `DB_PASS=YOURPASSWORD`
 
 ## Spotify API  
 
 Link: https://developer.spotify.com/documentation/web-api/tutorials/getting-started
 
-Create an account on the Spotify API website and follow the instructions.
-Save your own Client ID and Client Secret in the .env file in the client folder and import them into the files in the components folder
-Checkout the documentation and enjoy the ride!
+* Create an account on the Spotify API website and follow the instructions.
+
+* Save your own Client ID and Client Secret in the .env file in the client folder and import them into the files in the components folder
+
+* Checkout the documentation and enjoy the ride!
 
 ## Main Features
 
-By typing in the artist's name, users can see all the albums of this artist including album details. 
-Click on an album and checkout all the tracks
-Select a track and listen to 30 seconds of the song
+By typing in the artist's name, users can:
+
+- See all the albums of this artist including album details. 
+- Click on an album and checkout all the tracks
+- Select a track and listen to 30 seconds of the song
 
 Music lovers can also make a list of all their favorite tracks and listen to them whenever they want:
 
