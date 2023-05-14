@@ -59,6 +59,7 @@ Music lovers can also make a list of all their favorite tracks and listen to the
 ## Technologies
 
 * VS Code
+* Docker
 * Node.js
 * Express.js
 * API
