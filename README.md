@@ -3,7 +3,13 @@
 
 Get ready to rock out with my full-stack music web app! It's the ultimate destination for music lovers who want to jam out to their favorite tunes. With my app, you can easily search for albums from your favorite artists, listen to tracks, and even create your very own favorites playlist. So what are you waiting for? Start exploring, discovering and enjoying your favorite music with my full-stack music web app!
 
-<img width="960" alt="docker-containers-spotify" src="https://github.com/Mayadev3/MVP-Keep-Track-Spotify/assets/107764065/abd0522b-35af-43bd-b358-40204426c003">
+<img width="500" alt="docker-containers-spotify" src="https://github.com/Mayadev3/MVP-Keep-Track-Spotify/assets/107764065/df8a6267-5fdb-4ad2-8d22-294180be8bdd">
+
+<img width="500" alt="spotify-home" src="https://github.com/Mayadev3/MVP-Keep-Track-Spotify/assets/107764065/88146552-2770-43f2-8597-c901797f3c36">
+
+<img width="500" alt="2023-04-08 (8)" src="https://user-images.githubusercontent.com/107764065/230739987-b73bf8a1-a396-474f-9d22-e156ee019907.png">
+
+<img width="500" alt="2023-04-08 (10)" src="https://user-images.githubusercontent.com/107764065/230740064-5eba633c-88ee-4cf4-b191-0c0bfa66e54c.png">
 
 ## Setup
 
@@ -60,7 +66,6 @@ Music lovers can also make a list of all their favorite tracks and listen to the
 
 ## Technologies
 
-* VS Code
 * Docker
 * Node.js
 * Express.js
@@ -71,22 +76,6 @@ Music lovers can also make a list of all their favorite tracks and listen to the
 * HTML
 * CSS
 
-
-
-
-
-
-
-<img width="960" alt="2023-04-08 (3)" src="https://user-images.githubusercontent.com/107764065/230739734-f6cfc050-911a-4fec-bb10-0e22293fea6d.png">
-
-
-<img width="960" alt="2023-04-08 (13)" src="https://user-images.githubusercontent.com/107764065/230740183-9d2a6857-4688-42a9-9099-35aa2f6e193e.png">
-
-
-<img width="960" alt="2023-04-08 (8)" src="https://user-images.githubusercontent.com/107764065/230739987-b73bf8a1-a396-474f-9d22-e156ee019907.png">
-
-
-<img width="960" alt="2023-04-08 (10)" src="https://user-images.githubusercontent.com/107764065/230740064-5eba633c-88ee-4cf4-b191-0c0bfa66e54c.png">
 
 
 
