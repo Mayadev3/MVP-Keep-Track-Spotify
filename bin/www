@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-var app = require("../app");
-var debug = require("debug")("spotify:server");
+var app = require("../server/app");
+var debug = require("../server/node_modules/debug")("spotify:server");
 var http = require("http");
 
 /**

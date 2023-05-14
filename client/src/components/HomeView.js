@@ -26,7 +26,7 @@ const CLIENT_ID = "00858dd1207649a1be2b9016330f67a1";
 const CLIENT_SECRET = "89eb44180a6d48f7bb32b43eff007638";
 
 export default function HomeView() {
-  let [searchInput, setSearchInput] = useState("Cold Play");
+  let [searchInput, setSearchInput] = useState("Cold Play"); //always get cold play the second the page loads
   let [accessToken, setAccessToken] = useState("");
   let [albums, setAlbums] = useState([]);
 
@@ -52,7 +52,7 @@ export default function HomeView() {
   }, []);
 
   //USEEFFECT TO GET ALBUMS
-  //useEffect is a watcher, it looks at what is in the array, if it is empty then it fires off immediately
+  //useEffect is a watcher, it looks at what is in the array on line 61, if it is empty then it fires off immediately
   //when you load the page, but when you have the accessToken in that array, then it will only fireoff
   //when the accesstoken has been received
   useEffect(() => {
@@ -75,6 +75,7 @@ export default function HomeView() {
     //we use the & to say what the next varibale is
 
     //get request using search to get the Artist ID
+    //i know i called it artistId but it should be called albums
     let artistId = await fetch(
       "https://api.spotify.com/v1/search?q=" + searchInput + "&type=album", //if i put &type=album,track then i get the albums name and name of tracks on it
       searchParameters
@@ -121,8 +122,8 @@ export default function HomeView() {
   function handleKeyPress(event) {
     if (event.key == "Enter") {
       //search for different types of key events on google here : A Full List of Key Event Values
-      // console.log("Pressed Enter");
-      // console.log(searchInput);
+      // console.log("Pressed Enter"); i created those cosole.logs to see if there is a space before Pressed Enter or not
+      // console.log(searchInput); i created those cosole.logs to see if there is a space before the search input or not
       search();
     }
   }
@@ -161,10 +162,11 @@ export default function HomeView() {
               <Card key={index} className="p-3 mb-4 cards">
                 <Link to={`/album/${album.id}`}>
                   {/* this link is filling in the id parameter with the album.id so i can use it as a parameter in CardTracks as an id in all my fetches in CardTRacks  */}
+                  {/* we use links when we want to press on something and link it to a page of its own as in its own id with its own info */}
                   <Card.Img
                     src={album.images[1].url}
                     className="card-image img-fluid"
-                    onClick={(e) => getTracks(album.id)} //getting tracks
+                    onClick={(e) => getTracks(album.id)} //getting tracks//i dont need this line cause i put it all in a link and i also dont need the getTrack function cause i am fetching the album and tracks in CardView but i am keeping it cause somehow it is faster
                   />
                 </Link>
                 <div className="card-details">

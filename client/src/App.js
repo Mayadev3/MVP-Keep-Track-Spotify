@@ -7,14 +7,15 @@ import FavoritesView from "./components/FavoritesView";
 import CardTracks from "./components/CardTracks";
 
 function App() {
-  let [favorites, setFavorites] = useState([]); //setFavorites is actually a function that updates the favorites
+  let [favorites, setFavorites] = useState([]); //setFavorites is actually a function that updates the favorites..we put an empty array cause the info in the favorites table is an array of objects
 
-  //always put all the database info in the App.js to pass it down easily to children and siblings
+  //always put all the database info in the App.js to pass it down easily to children and siblings..However, Germinal said we dont need to..we can fetch from the databse directly
   useEffect(() => {
     getFavorites();
   }, []);
 
-  const getFavorites = async () => {
+  const getFavorites = () => {
+    //i didnt use await here cause i want my info syncronously.. i can do a fetch without an async await
     fetch("/api/favorites") // this is the database address and i am getting all my data from this route.. if i go to localhost:3000/api/favorites i will see my api array of objects there
       .then((response) => {
         if (response.ok) {

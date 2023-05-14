@@ -12,6 +12,7 @@ export default function FavoritesView(props) {
           <th className="album-header">Album</th>
           <th></th>
         </tr>
+        {/* here i am looping through my table which is favorites..remember a table is an array and each item in it is an object */}
         {props.favorites.map((favorite) => (
           <div key={favorite.id} className="favorites">
             <table>
