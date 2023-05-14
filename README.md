@@ -1,7 +1,9 @@
+
 # Spotify - Full Stack Web Application (Spotify API) + Docker
 
 Get ready to rock out with my full-stack music web app! It's the ultimate destination for music lovers who want to jam out to their favorite tunes. With my app, you can easily search for albums from your favorite artists, listen to tracks, and even create your very own favorites playlist. So what are you waiting for? Start exploring, discovering and enjoying your favorite music with my full-stack music web app!
 
+<img width="960" alt="docker-containers-spotify" src="https://github.com/Mayadev3/MVP-Keep-Track-Spotify/assets/107764065/abd0522b-35af-43bd-b358-40204426c003">
 
 ## Setup
 
