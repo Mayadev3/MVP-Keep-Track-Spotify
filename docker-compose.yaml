@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - mynetwork
+  api:
+    build: ./server
+    ports:
+      - 8080:5000
+    depends_on:
+      - mysql
+    env_file:
+      - "./server/.env"
+    networks:
+      - mynetwork
+  frontend:
+    build: ./client
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+    environment:
+      REACT_APP_API_URL: http://api:5000
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
