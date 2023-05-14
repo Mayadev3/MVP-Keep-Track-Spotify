@@ -7,7 +7,7 @@ Get ready to rock out with my full-stack music web app! It's the ultimate destin
 
 ### Dependencies
 
-* Run `npm install` in project directory. This will install server-related dependencies such as `Express`
+* `cd server` and run npm install. This will install server-related dependencies such as `Express`
 * `cd client` and run `npm install`. This will install client dependencies.
 
 ## Database Preparation
