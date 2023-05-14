@@ -28,8 +28,8 @@ Get ready to rock out with my full-stack music web app! It's the ultimate destin
 
 ## Development
 
-* Run `npm start` in project directory to start the Express server on port 5000
-* In another terminal, do `cd client` and run `npm start` to start the client in development mode with hot reloading in port 3000.
+* `cd server` and run `to start` the Express server on port 5000
+* `cd client` and run `npm start` to start the client in development mode on port 3000.
 
 ## Spotify API  
 
